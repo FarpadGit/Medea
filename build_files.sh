@@ -4,7 +4,7 @@ python3 manage.py collectstatic --noinput
 
 cd ..
 mkdir -p .vercel/output/static
-cp -r staticfiles/ .vercel/output/static/
+cp -r ./main/staticfiles/ .vercel/output/static/
 
 cd main
 python3 manage.py makemigrations

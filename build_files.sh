@@ -1,4 +1,4 @@
-export PATH=/python312/bin:$PATH
+export PYTHONPATH=/python312/bin:$PYTHONPATH
 
 python3 -m pip install -r ./main/requirements.txt
 python3 ./main/manage.py collectstatic --noinput

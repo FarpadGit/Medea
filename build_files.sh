@@ -5,7 +5,7 @@ python3 -m pip install -r ./main/requirements.txt
 python3 ./main/manage.py collectstatic --noinput
 
 pip list -v
-export PYTHONPATH=/venv/Lib/site-packages:$PYTHONPATH
+export PYTHONPATH=/vercel/path0/venv/Lib/python3.12/site-packages:$PYTHONPATH
 
 mkdir -p .vercel/output/static
 cp -r ./main/staticfiles/* .vercel/output/static/

@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'styles/user.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>{{ userName }}'s Gallery</h2>
+  <ul>
+    <div class="image-list">
+    {% for image in object_list %}
+      <div class="image-item">
+          <a href="{{ image.url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ image.url }}" alt="{{image.name}}" class="user-image"/>
+            <img src="/static/splatter{{splatters|random}}.png" alt="" class="splatter"/>
+            <p>Upload date: {{ image.created_at|date:"Y M d D" }}</p>
+          </a>
+        </div>
+    {% endfor %}
+  </ul>
+{% endblock %}

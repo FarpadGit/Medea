@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'styles/file.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>File Upload</h2>
+        <form method="post" action="{% url 'file-upload' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="filePicker" name="file" type="file" onchange="handleFileChange()"/>
+            <label for="filePicker">Pick a File</label>
+            <button id="submit" type="submit" disabled>Upload</button>
+            {% if download_id %}
+                <img src="{% static 'ok.png' %}" alt="success" width="200">
+                {% url 'file-download' id=download_id as download_link %}
+                <p>Download Link: {{host}}{{download_link}}</p>
+            {% endif %}
+            <p id="message-block"></p>
+        </form>
+    </div>
+    <script>
+        function handleFileChange() {
+            const maxSize = Number("{{max_size}}");
+            const fi = document.getElementById("filePicker");
+            if (fi.files.length > 0) {
+                if (fi.files[0].size >= maxSize) {
+                    document.getElementById("submit").setAttribute("disabled", "");
+                    document.getElementById("message-block").innerText = "File Too Large";
+                } else {
+                    document.getElementById("submit").removeAttribute("disabled");
+                    document.getElementById("message-block").innerText = "";
+                }
+            }
+        }
+    </script>
+{% endblock %}

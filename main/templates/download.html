@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'styles/file.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>File Download</h2>
+        <h3>{{name}}</h3>
+        <h4>Download ID: {{download_id}}</h4>
+        <h4>Upload Date: {{created_at|date:"Y M d D"}}</h4>
+        <form method="post" action="{% url 'file-download' id=download_id %}">
+            {% csrf_token %}
+            <input name="filename" type="text" value="{{name}}"/>
+            <input name="content" type="text" value="{{content}}"/>
+            <button type="submit">Download</button>
+        </form>
+    </div>
+{% endblock %}

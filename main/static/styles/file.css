@@ -1,0 +1,104 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+        color: var(--color2);
+    }
+
+    h3 {
+        font-family: Bagpack;
+        font-size: 3rem;
+        color: var(--color3);
+        text-align: center;
+    }
+
+    h4 {
+        font-family: Bagpack;
+        font-size: 2rem;
+        color: var(--color1);
+        text-align: center;
+    }
+
+    form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        gap: 1rem;
+
+        input {
+            display: none;
+        }
+
+        button,
+        label {
+            width: fit-content;
+            padding: 0 1rem;
+            align-self: center;
+            font-family: Bagpack;
+            font-size: 2rem;
+            color: var(--color4);
+            background-color: transparent;
+            border: 3px solid var(--color4);
+            cursor: pointer;
+            transition: color 0.5s ease-in-out, border-color 0.5s ease-in-out;
+            filter: drop-shadow(0 5px black);
+
+            &:disabled {
+                cursor: default;
+                color: color-mix(in srgb, var(--color4) 50%, transparent 50%);
+                border-color: color-mix(in srgb, var(--color4) 50%, transparent 50%);
+                filter: none;
+            }
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            translate: 50% -10%;
+            filter: var(--color1-filter);
+            ;
+        }
+
+        p {
+            font-family: Bagpack;
+            font-size: 2.5rem;
+            color: var(--color3);
+            text-align: center;
+            cursor: default;
+        }
+
+        #message-block {
+            color: var(--color2);
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        h3 {
+            font-size: 2rem;
+        }
+
+        h4 {
+            font-size: 2rem;
+        }
+
+        form {
+            img {
+                position: relative;
+                translate: -50%;
+            }
+
+            p {
+                padding: 0 1rem;
+                font-size: 1.25rem;
+            }
+        }
+    }
+}

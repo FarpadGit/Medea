@@ -1,0 +1,298 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: black-bruno;
+    src: local("black-bruno"), url("../black-bruno.regular.otf");
+}
+
+@font-face {
+    font-family: AttackGraffiti;
+    src: local("AttackGraffiti-E"), url("../AttackGraffiti-E.otf");
+}
+
+@font-face {
+    font-family: Bagpack;
+    src: local("Bagpack"), url("../Bagpack.ttf");
+}
+
+body {
+    --color1: #f4c364;
+    --color2: #f47c64;
+    --color3: #dcf464;
+    --color4: #7c64f4;
+    /* https://codepen.io/sosuke/pen/Pjoqqp */
+    --color1-filter: invert(69%) sepia(47%) saturate(455%) hue-rotate(358deg) brightness(107%) contrast(91%);
+
+    background-color: rgb(67, 58, 98);
+    background-image: url("../graffiti2.jpg");
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+
+img {
+    pointer-events: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.banner {
+    --margin-y: 2rem;
+    position: relative;
+    width: 90%;
+    height: 33vh;
+    margin: var(--margin-y) auto;
+    overflow: visible;
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    img {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        filter: saturate(0.75) brightness(0.75);
+
+        &:first-child {
+            top: 0;
+            height: 100%;
+            border: 5px solid black;
+            border-radius: 2rem;
+            object-fit: cover;
+        }
+    }
+
+    #graffitiBanner {
+        top: calc(-1 * var(--margin-y));
+        height: 66vh;
+        object-fit: contain;
+        margin-top: -7vh;
+        object-position: top;
+    }
+}
+
+div:has(#uploadLink) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+
+    #uploadLink {
+        width: fit-content;
+        align-self: center;
+        padding: 0 1rem;
+        font-family: Bagpack;
+        font-size: 2rem;
+        color: var(--color4);
+        background-color: transparent;
+        border: 3px solid var(--color4);
+        cursor: pointer;
+        filter: drop-shadow(5px 5px black);
+    }
+
+    @media (max-width: 767px) {
+        margin-top: 1rem;
+    }
+}
+
+
+h1 {
+    position: absolute;
+    top: -17rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 100pt;
+    font-weight: 400;
+    letter-spacing: 1rem;
+    margin: 10vh 0;
+    color: var(--color1);
+    font-family: black-bruno;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 10px black);
+
+    &>span {
+        position: absolute;
+        padding: 0 10px;
+        margin: 0 -10px;
+        overflow: hidden;
+        background-image: linear-gradient(100deg, var(--color2) 45%, transparent 50%);
+        color: transparent;
+        letter-spacing: 0;
+        clip-path: polygon(-7.35% 58.64%, 20.59% 34.27%, 50.66% 33.28%, 57.44% 40.07%, 52.25% 47.46%, 45.21% 53.85%, 13.8% 62.13%);
+        background-clip: text;
+    }
+}
+
+h2 {
+    width: 100%;
+    margin: 5rem 0;
+    padding: 0 3rem;
+    font-family: AttackGraffiti;
+    font-size: 4.15rem;
+    color: var(--color3);
+    text-align: center;
+    cursor: default;
+}
+
+ul {
+    margin: 3rem;
+    list-style: none;
+
+    h3 {
+        font-family: Bagpack;
+        font-size: 2.5rem;
+        color: var(--color4);
+    }
+
+    .image-list {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 1rem;
+
+        .image-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+        }
+
+        .splatter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: -1;
+            filter: var(--color1-filter);
+
+            /* &.color1 {
+                filter: invert(79%) sepia(8%) saturate(2536%) hue-rotate(356deg) brightness(102%) contrast(91%);
+            }
+
+            &.color2 {
+                filter: invert(58%) sepia(98%) saturate(1857%) hue-rotate(323deg) brightness(109%) contrast(91%);
+            }
+
+            &.color3 {
+                filter: invert(85%) sepia(47%) saturate(516%) hue-rotate(17deg) brightness(107%) contrast(91%);
+            }
+
+            &.color4 {
+                filter: invert(35%) sepia(91%) saturate(2314%) hue-rotate(233deg) brightness(104%) contrast(91%);
+            } */
+        }
+
+        .image-item:nth-of-type(2n) img {
+            transform: rotate(-1deg);
+        }
+
+        .image-item:nth-of-type(2n+1) img {
+            transform: rotate(1deg);
+        }
+
+        p {
+            color: white;
+            font-family: Bagpack;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 2px black);
+        }
+    }
+}
+
+@media (max-width: 1399px) {
+    .banner #graffitiBanner {
+        top: 50%;
+        left: 53%;
+        transform: translate(-50%, -50%);
+        object-position: center;
+        width: 110%;
+        margin-top: 0;
+    }
+
+    ul {
+        .image-list {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+}
+
+@media (max-width: 1279px) {
+    ul {
+        .image-list {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    h1 {
+        font-size: 67pt;
+        top: -10rem;
+    }
+
+    .banner #graffitiBanner {
+        width: 120%;
+    }
+
+    h2 {
+        margin: 3rem 0;
+        font-size: 3.5rem;
+    }
+
+    ul {
+        .image-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+}
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 50pt;
+        top: -7rem;
+    }
+
+    .banner #graffitiBanner {
+        width: 130%;
+    }
+
+    h2 {
+        margin: 2rem 0;
+        font-size: 2.5rem;
+    }
+
+    ul {
+        h3 {
+            font-size: 2.5rem;
+        }
+
+        .image-list {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            font-size: 1.25rem;
+        }
+    }
+}

@@ -23,5 +23,8 @@
       "src": "/(.*)",
       "dest": "main/main/wsgi.py"
     }
-  ]
+  ],
+  "env": {
+    "PYTHONPATH": "main:venv/lib/python3.12/site-packages"
+  }
 }

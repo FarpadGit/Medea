@@ -40,4 +40,6 @@ def delete_image_external(image_id: str):
     print("ImageKit Delete results:", delete.response_metadata.raw)
 
 def update_WF_DB(images: list[dict[str, str]], post_id: str, uploader_id: str):
+    print("sending Patch to:", env("WAYFARER_ENDPOINT") + post_id)
+    print("with data:", json.dumps({ 'images': images }), "userId:", uploader_id)
     requests.patch(env("WAYFARER_ENDPOINT") + post_id, data=json.dumps({ 'images': images }), cookies={"userId": uploader_id}, headers={'Content-Type': 'application/json'})

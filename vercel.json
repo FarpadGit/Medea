@@ -20,8 +20,8 @@
       "destination": "/staticfiles/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "main/main/wsgi.py"
+      "source": "/(.*)",
+      "destination": "main/main/wsgi.py"
     }
   ],
   "env": {

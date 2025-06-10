@@ -106,12 +106,13 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
                     try:
                         image_id = Images.objects.get(name=name).file_id
                         delete_image_external(image_id)
-
-                        # convert decrypted data into an HttpRequest body for Django Rest Framework to use and delete from db
-                        delete_request = Request(HttpRequest())
-                        self.imageName = name
-                        response = super().delete(delete_request, *args, **kwargs)
                     except:pass
+                    
+                    # convert decrypted data into an HttpRequest body for Django Rest Framework to use and delete from db
+                    delete_request = Request(HttpRequest())
+                    self.imageName = name
+                    response = super().delete(delete_request, *args, **kwargs)
+                
+                    return response
 
-                return response
             case _: return HttpResponseBadRequest("Incorrect origin")

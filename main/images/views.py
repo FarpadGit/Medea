@@ -60,7 +60,7 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
 
                     user_in_DB = Users.objects.filter(server_side_id=decrypted_data["uploader_id"]).first()
                     if user_in_DB is None:
-                        uploader_name = re.sub("\s", "_", decrypted_data["uploader_name"])
+                        uploader_name = re.sub(r"\s", "_", decrypted_data["uploader_name"])
                         user_in_DB = Users.objects.create(
                             server_side_id=decrypted_data["uploader_id"], 
                             name=uploader_name,

@@ -23,7 +23,7 @@ from .views import HomePageView, UserPageView, NotFoundView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", HomePageView.as_view(), name="home"),
-    path("users/<str:userId>/", UserPageView.as_view(), name="user"),
+    path("users/<str:user_id>/", UserPageView.as_view(), name="user"),
     path("", include("images.urls")),
     path("", include("files.urls")),
 ]

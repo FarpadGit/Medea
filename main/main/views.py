@@ -1,4 +1,5 @@
 from random import sample
+from urllib.parse import unquote
 from django.shortcuts import get_list_or_404, render
 from django.views.generic import ListView
 from images.models import Images, Users
@@ -26,13 +27,17 @@ class UserPageView(ListView):
     ordering = "created_at"
     template_name = "user.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        self.user_ID = unquote(kwargs['user_id'])
+        return super().dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
-        return get_list_or_404(Images, uploader__slug=self.kwargs["userId"])
+        return get_list_or_404(Images, uploader__slug=self.user_ID)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["splatters"] = [1,2,3,4,5,6]
-        context["userName"] = Users.objects.get(slug=self.kwargs["userId"]).name
+        context["userName"] = Users.objects.get(slug=self.user_ID).name
         return context
     
 def NotFoundView(request, exception=None):

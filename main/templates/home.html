@@ -10,7 +10,7 @@
   <ul>
     {% for image_list in grouped_list %}
     <li>
-      <h3><a href="{% url 'user' userId=image_list.grouper.slug %}">{{ image_list.grouper.name }}</a></h3>
+      <h3><a href="{% url 'user' user_id=image_list.grouper.slug %}">{{ image_list.grouper.name }}</a></h3>
       <div class="image-list">
         {% for image in image_list.list %}
           {% if forloop.counter0 < 5 %}

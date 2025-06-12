@@ -12,7 +12,7 @@ class ImagesConfig(AppConfig):
 # reads database on startup, comment it out if making migrations
 def cleanup_old_records(**kwargs):
     from .models import Images, ttl
-    from .timers import start_delete_timer
+    from .utils import start_delete_timer
 
     old_records = Images.objects.filter(temporary = True, created_at__lt = timezone.now() - timedelta(seconds = ttl))
     for rec in old_records:

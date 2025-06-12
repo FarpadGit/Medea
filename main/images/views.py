@@ -1,16 +1,18 @@
-import string
-import random
+import re
 from django.views.generic import ListView
 from django.http import HttpResponseBadRequest
 from rest_framework.generics import ListCreateAPIView, DestroyAPIView
 from rest_framework.request import Request, HttpRequest
+from rest_framework.response import Response
 
+from main.settings import env
 from .models import Users, Images, ttl
 from .serializers import ImagesSerializer
 from .encryption import decrypt
 from .file_upload import upload_image_external, delete_image_external, update_WF_DB
-from .timers import start_delete_timer
+from .utils import start_delete_timer, random_string
 
+import vercel_blob
 
 class HomePageView(ListView):
     model = Images
@@ -111,8 +113,8 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
                     # convert decrypted data into an HttpRequest body for Django Rest Framework to use and delete from db
                     delete_request = Request(HttpRequest())
                     self.imageName = name
-                    response = super().delete(delete_request, *args, **kwargs)
+                    super().delete(delete_request, *args, **kwargs)
                 
-                    return response
+                return Response(status=204)
 
             case _: return HttpResponseBadRequest("Incorrect origin")

@@ -44,12 +44,15 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
             if field not in decrypted_data: return HttpResponseBadRequest(f"Incorrect payload, '{field}' field is required")
 
         for file in decrypted_data["files"]:
-            if "name" not in file or "src" not in file: return HttpResponseBadRequest("Incorrect payload, 'files' field should be an array of 'name' and 'src'")
+            if "name" not in file or "url" not in file: return HttpResponseBadRequest("Incorrect payload, 'files' field should be an array of 'name' and 'url'")
 
         match origin:
             case "WF":
-                # upload base64 encoded image to external storage
+                # upload images stored in Vercel Blob to external storage and clear them from blob storage
                 uploaded_images = upload_image_external(decrypted_data["files"])
+                for blobfile in decrypted_data["files"]:
+                    vercel_blob.delete(blobfile["url"])
+                
                 image_names = []
 
                 for image in uploaded_images:
@@ -57,10 +60,11 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
 
                     user_in_DB = Users.objects.filter(server_side_id=decrypted_data["uploader_id"]).first()
                     if user_in_DB is None:
+                        uploader_name = re.sub("\s", "_", decrypted_data["uploader_name"])
                         user_in_DB = Users.objects.create(
                             server_side_id=decrypted_data["uploader_id"], 
-                            name=decrypted_data["uploader_name"],
-                            slug=decrypted_data["uploader_name"] + "_" + "".join(random.choices(string.ascii_letters + string.digits, k=8))
+                            name=uploader_name,
+                            slug=uploader_name + "_" + random_string()
                             )
 
                     # convert decrypted data into an HttpRequest body for Django Rest Framework to use and save into db

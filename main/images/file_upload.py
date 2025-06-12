@@ -15,7 +15,7 @@ def upload_image_external(images: list[dict[str, str]]):
     
     for image in images:
         upload, = imagekit.upload(
-            file=image["src"],
+            file=image["url"],
             file_name=image["name"],
             options=UploadFileRequestOptions(
                     response_fields = ["is_private_file", "custom_metadata"],

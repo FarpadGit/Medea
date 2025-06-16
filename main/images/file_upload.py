@@ -41,4 +41,4 @@ def delete_image_external(image_id: str):
 
 def update_WF_DB(images: list[dict[str, str]], post_id: str, uploader_id: str):
     requests.patch(env("WAYFARER_ENDPOINT") + post_id, data=json.dumps({ 'images': images }), cookies={"userId": uploader_id}, headers={'Content-Type': 'application/json'})
-    print("Dispatched request to" + env("WAYFARER_ENDPOINT") + post_id + " with payload: " + json.dumps({ 'images': images }))
+    print("Dispatched request to " + env("WAYFARER_ENDPOINT") + post_id + " with payload: " + json.dumps({ 'images': images }))

@@ -8,7 +8,7 @@ python3 ./main/manage.py collectstatic --noinput
 
 mkdir -p .vercel/output/static
 cp -r ./main/staticfiles/* .vercel/output/static/
-cp ./main/main/wsgi.py .vercel/output/main/main/
+cp ./main/main/wsgi.py .vercel/output/main/main/wsgi.py
 
 cd main
 # python3 manage.py makemigrations

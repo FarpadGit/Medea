@@ -185,8 +185,8 @@ dependencies = [
     { name = "tqdm" },
     { name = "tzdata" },
     { name = "urllib3" },
-    { name = "vercel-blob" }
-    { name = "whitenoise" },
+    { name = "vercel-blob" },
+    { name = "whitenoise" }
 ]
 
 [package.metadata]
@@ -211,8 +211,8 @@ requires-dist = [
     { name = "tqdm", specifier = "==4.67.1" },
     { name = "tzdata", specifier = "==2025.2" },
     { name = "urllib3", specifier = "==2.5.0" },
-    { name = "vercel-blob", specifier = "==0.4.2" }
-    { name = "whitenoise", specifier = "==6.9.0" },
+    { name = "vercel-blob", specifier = "==0.4.2" },
+    { name = "whitenoise", specifier = "==6.9.0" }
 ]
 
 [[package]]

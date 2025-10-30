@@ -7,6 +7,7 @@ python3 -m pip install -r ./main/requirements.txt --no-dependencies
 python3 ./main/manage.py collectstatic --noinput
 
 mkdir -p .vercel/output/static
+mkdir -p .vercel/output/main/main
 cp -r ./main/staticfiles/* .vercel/output/static/
 cp ./main/main/wsgi.py .vercel/output/main/main/wsgi.py
 

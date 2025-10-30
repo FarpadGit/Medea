@@ -148,16 +148,12 @@ wheels = [
 
 [[package]]
 name = "imagekitio"
-version = "4.1.0"
-source = { registry = "https://pypi.org/simple" }
+version = "4.2.0"
+source = { git = "https://github.com/imagekit-developer/imagekit-python.git#9aa7e337eaf6e1e451268a12fb815f76bf6ffe69" }
 dependencies = [
     { name = "requests" },
     { name = "requests-toolbelt" },
     { name = "urllib3" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/f8/44/279f920b3ae3dbbbcc7238dafdb5049a7e3623cba099e9e8a6ee98178708/imagekitio-4.1.0.tar.gz", hash = "sha256:2dbced021aab3c4a55c458f61a5e19f17511540e04981900e959670365881750", size = 314810, upload-time = "2024-09-05T16:55:37.052Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/50/00/1d5ef94ecd6bcde137913f7ceddbfb78a681ac643f20b31fe3293c64d526/imagekitio-4.1.0-py3-none-any.whl", hash = "sha256:893874c2a55f366a09628bbf504647fab671f44eb0815dcbc5e6c49fa07810c4", size = 321130, upload-time = "2024-09-05T16:55:35.036Z" },
 ]
 
 [[package]]
@@ -186,7 +182,7 @@ dependencies = [
     { name = "tzdata" },
     { name = "urllib3" },
     { name = "vercel-blob" },
-    { name = "whitenoise" }
+    { name = "whitenoise" },
 ]
 
 [package.metadata]
@@ -201,18 +197,18 @@ requires-dist = [
     { name = "djangorestframework", specifier = "==3.16.0" },
     { name = "gunicorn", specifier = "==23.0.0" },
     { name = "idna", specifier = "==3.10" },
-    { name = "imagekitio", specifier = "==4.1.0" },
+    { name = "imagekitio", git = "https://github.com/imagekit-developer/imagekit-python.git" },
     { name = "packaging", specifier = "==25.0" },
     { name = "psycopg2-binary", specifier = "==2.9.10" },
     { name = "pycryptodome", specifier = "==3.23.0" },
-    { name = "requests", specifier = "==2.32.5" },
-    { name = "requests-toolbelt", specifier = "==0.10.1" },
+    { name = "requests", specifier = "==2.32.3" },
+    { name = "requests-toolbelt", specifier = ">=0.10.1" },
     { name = "sqlparse", specifier = "==0.5.3" },
     { name = "tqdm", specifier = "==4.67.1" },
     { name = "tzdata", specifier = "==2025.2" },
-    { name = "urllib3", specifier = "==2.5.0" },
-    { name = "vercel-blob", specifier = "==0.4.2" },
-    { name = "whitenoise", specifier = "==6.9.0" }
+    { name = "urllib3", specifier = ">=1.26.20" },
+    { name = "vercel-blob", git = "https://github.com/SuryaSekhar14/vercel_blob.git" },
+    { name = "whitenoise", specifier = "==6.9.0" },
 ]
 
 [[package]]
@@ -299,7 +295,7 @@ wheels = [
 
 [[package]]
 name = "requests"
-version = "2.32.5"
+version = "2.32.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -307,21 +303,21 @@ dependencies = [
     { name = "idna" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz", hash = "sha256:dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf", size = 134517, upload-time = "2025-08-18T20:46:02.573Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760", size = 131218, upload-time = "2024-05-29T15:37:49.536Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl", hash = "sha256:2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6", size = 64738, upload-time = "2025-08-18T20:46:00.542Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6", size = 64928, upload-time = "2024-05-29T15:37:47.027Z" },
 ]
 
 [[package]]
 name = "requests-toolbelt"
-version = "0.10.1"
+version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0c/4c/07f01c6ac44f7784fa399137fbc8d0cdc1b5d35304e8c0f278ad82105b58/requests-toolbelt-0.10.1.tar.gz", hash = "sha256:62e09f7ff5ccbda92772a29f394a49c3ad6cb181d568b1337626b2abb628a63d", size = 208956, upload-time = "2022-10-25T03:14:58.576Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f3/61/d7545dafb7ac2230c70d38d31cbfe4cc64f7144dc41f6e4e4b78ecd9f5bb/requests-toolbelt-1.0.0.tar.gz", hash = "sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6", size = 206888, upload-time = "2023-05-01T04:11:33.229Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/05/d3/bf87a36bff1cb88fd30a509fd366c70ec30676517ee791b2f77e0e29817a/requests_toolbelt-0.10.1-py2.py3-none-any.whl", hash = "sha256:18565aa58116d9951ac39baa288d3adb5b3ff975c4f25eee78555d89e8f247f7", size = 54525, upload-time = "2022-10-25T03:14:55.289Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/51/d4db610ef29373b879047326cbf6fa98b6c1969d6f6dc423279de2b1be2c/requests_toolbelt-1.0.0-py2.py3-none-any.whl", hash = "sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06", size = 54481, upload-time = "2023-05-01T04:11:28.427Z" },
 ]
 
 [[package]]
@@ -364,12 +360,14 @@ wheels = [
 ]
 
 [[package]]
-name = "urllib3"
-version = "1.26.20"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e4/e8/6ff5e6bc22095cfc59b6ea711b687e2b7ed4bdb373f7eeec370a97d7392f/urllib3-1.26.20.tar.gz", hash = "sha256:40c2dc0c681e47eb8f90e7e27bf6ff7df2e677421fd46756da1161c39ca70d32", size = 307380, upload-time = "2024-08-29T15:43:11.37Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/33/cf/8435d5a7159e2a9c83a95896ed596f68cf798005fe107cc655b5c5c14704/urllib3-1.26.20-py2.py3-none-any.whl", hash = "sha256:0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e", size = 144225, upload-time = "2024-08-29T15:43:08.921Z" },
+name = "vercel-blob"
+version = "0.4.2"
+source = { git = "https://github.com/SuryaSekhar14/vercel_blob.git#753a1a365e740380802b3c560339519de6c6d463" }
+dependencies = [
+    { name = "certifi" },
+    { name = "requests" },
+    { name = "tqdm" },
+    { name = "urllib3" },
 ]
 
 [[package]]
@@ -379,19 +377,4 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/b9/cf/c15c2f21aee6b22a9f6fc9be3f7e477e2442ec22848273db7f4eb73d6162/whitenoise-6.9.0.tar.gz", hash = "sha256:8c4a7c9d384694990c26f3047e118c691557481d624f069b7f7752a2f735d609", size = 25920, upload-time = "2025-02-06T22:16:34.957Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/64/b2/2ce9263149fbde9701d352bda24ea1362c154e196d2fda2201f18fc585d7/whitenoise-6.9.0-py3-none-any.whl", hash = "sha256:c8a489049b7ee9889617bb4c274a153f3d979e8f51d2efd0f5b403caf41c57df", size = 20161, upload-time = "2025-02-06T22:16:32.589Z" },
-]
-
-[[package]]
-name = "vercel-blob"
-version = "0.4.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "certifi" },
-    { name = "requests" },
-    { name = "tqdm" },
-    { name = "urllib3" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/42/bd/d299ee6ef69db7b3b6bd636e592ea0f5d87d65f0a9a69f68db4818117265/vercel_blob-0.4.2.tar.gz", hash = "sha256:1c8e24c618cb62d7ddaa91d6a01b94bd5e8856ed0cfc7525fb6bfe064e2790c6", size = 15281, upload-time = "2025-06-07T06:16:06.891Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5d/19/fadf607014ab74305e1eb91027215401d65b29af7e1f67cb4d1c17785796/vercel_blob-0.4.2-py3-none-any.whl", hash = "sha256:4150fc596b198489529275de46e577353a200fb292a39b9aecb76f76425fc05d", size = 15655, upload-time = "2025-06-07T06:16:05.343Z" },
 ]

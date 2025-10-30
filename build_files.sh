@@ -1,8 +1,6 @@
 uv venv
 source .venv/bin/activate
 
-python3 -m pip install --upgrade pip
-
 uv sync
 python3 ./main/manage.py collectstatic --noinput
 

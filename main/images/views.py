@@ -9,7 +9,7 @@ from main.settings import env
 from .models import Users, Images, ttl
 from .serializers import ImagesSerializer
 from .encryption import decrypt
-from .file_upload import upload_image_external, delete_image_external, update_WF_DB
+from .external_ops import upload_image_external, delete_image_external, update_WF_DB
 from .utils import start_delete_timer, random_string
 
 import vercel_blob
@@ -39,17 +39,17 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
 
         decrypted_data = decrypt(encrypted_payload)
 
-        required_fields = "files", "post_id", "uploader_id", "uploader_name"
-        for field in required_fields:
-            if field not in decrypted_data: return HttpResponseBadRequest(f"Incorrect payload, '{field}' field is required")
-
-        for file in decrypted_data["files"]:
-            if "name" not in file or "url" not in file: return HttpResponseBadRequest("Incorrect payload, 'files' field should be an array of 'name' and 'url'")
-
         match origin:
             case "WF":
+                required_fields = "files", "post_id", "uploader_id", "uploader_name"
+                for field in required_fields:
+                    if field not in decrypted_data: return HttpResponseBadRequest(f"Incorrect payload, '{field}' field is required")
+
+                for file in decrypted_data["files"]:
+                    if "name" not in file or "url" not in file: return HttpResponseBadRequest("Incorrect payload, 'files' field should be an array of 'name' and 'url'")
+
                 # upload images stored in Vercel Blob to external storage and clear them from blob storage
-                uploaded_images = upload_image_external(decrypted_data["files"])
+                uploaded_images = upload_image_external(decrypted_data["files"], decrypted_data["folder"] if "folder" in decrypted_data else "/")
                 for blobfile in decrypted_data["files"]:
                     vercel_blob.delete(blobfile["url"])
                 

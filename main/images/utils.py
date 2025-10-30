@@ -1,7 +1,7 @@
 import string
 import random
 from .models import Images, ttl
-from .file_upload import delete_image_external, update_WF_DB
+from .external_ops import delete_image_external, update_WF_DB
 from threading import Timer
 
 def random_string(length=8):

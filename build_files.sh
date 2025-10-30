@@ -3,13 +3,12 @@ source venv/bin/activate
 
 python3 -m pip install --upgrade pip
 
-python3 -m pip install -r ./main/requirements.txt --no-dependencies
+# python3 -m pip install -r ./main/requirements.txt --no-dependencies
+uv sync
 python3 ./main/manage.py collectstatic --noinput
 
 mkdir -p .vercel/output/static
-mkdir -p .vercel/output/main/main
 cp -r ./main/staticfiles/* .vercel/output/static/
-cp ./main/main/wsgi.py .vercel/output/main/main/wsgi.py
 
 cd main
 # python3 manage.py makemigrations

@@ -2,6 +2,7 @@ python3 -m venv venv
 source venv/bin/activate
 
 python3 -m pip install --upgrade pip
+python3 -m pip install uv
 
 python3 -m pip install -r ./main/requirements.txt --no-dependencies
 python3 ./main/manage.py collectstatic --noinput
@@ -12,3 +13,8 @@ cp -r ./main/staticfiles/* .vercel/output/static/
 cd main
 # python3 manage.py makemigrations
 # python3 manage.py migrate
+
+uv venv
+source .venv/bin/activate
+uv init
+uv add -r requirements.txt --no-dependencies

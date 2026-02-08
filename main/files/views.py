@@ -96,14 +96,18 @@ class FileUploadView(ListCreateAPIView):
     context["max_size"] = max_upload_size
 
     def get(self, request, *args, **kwargs):
-        return render(request, "upload.html", self.context)
+        return render(request, "file_upload.html", self.context)
 
     def post(self, request, *args, **kwargs):
         if "file" not in request.data or "file" not in request.FILES:
-            return render(request, "upload.html", self.context)
+            return render(request, "file_upload.html", self.context)
         
         filename = str(request.data["file"]).replace("-", "_")
-        file = request.FILES["file"]            
+        file = request.FILES["file"]
+
+        if file.size > max_upload_size:
+            context = { **self.context, "error_msg": "File too large" }
+            return render(request, "file_upload.html", context)
         
         binary = file.read(max_upload_size)
         
@@ -112,5 +116,4 @@ class FileUploadView(ListCreateAPIView):
         start_delete_timer(download_id)
 
         context = { **self.context, "download_id": download_id, "host": request.get_host() }
-
-        return render(request, "upload.html", context)
+        return render(request, "file_upload.html", context)

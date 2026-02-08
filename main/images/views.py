@@ -1,12 +1,14 @@
 import re
+import magic
 from django.views.generic import ListView
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from rest_framework.generics import ListCreateAPIView, DestroyAPIView
 from rest_framework.request import Request, HttpRequest
 from rest_framework.response import Response
+from django.shortcuts import render
 
 from main.settings import env
-from .models import Users, Images, ttl
+from .models import Users, Images, ttl, guest_upload_ttl, max_upload_size
 from .serializers import ImagesSerializer
 from .encryption import decrypt
 from .external_ops import upload_image_external, delete_image_external, update_WF_DB
@@ -32,7 +34,7 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
 
         # decrypt incoming data
         if "ac" not in payload or "origin" not in payload: 
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest("Incorrect payload")
         
         encrypted_payload = bytearray(payload["ac"], "utf-8")
         origin = payload["origin"]
@@ -60,11 +62,11 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
 
                     user_in_DB = Users.objects.filter(server_side_id=decrypted_data["uploader_id"]).first()
                     if user_in_DB is None:
-                        uploader_name = re.sub(r"\s", "_", decrypted_data["uploader_name"])
+                        safe_uploader_name = re.sub(r"\s", "_", decrypted_data["uploader_name"])
                         user_in_DB = Users.objects.create(
                             server_side_id=decrypted_data["uploader_id"], 
-                            name=uploader_name,
-                            slug=uploader_name + "_" + random_string()
+                            name=decrypted_data["uploader_name"],
+                            slug=safe_uploader_name + "_" + random_string()
                             )
 
                     # convert decrypted data into an HttpRequest body for Django Rest Framework to use and save into db
@@ -122,3 +124,62 @@ class ApiImagesView(ListCreateAPIView, DestroyAPIView):
                 return Response(status=204)
 
             case _: return HttpResponseBadRequest("Incorrect origin")
+  
+class ImageUploadView(ListCreateAPIView):
+    serializer_class = ImagesSerializer
+
+    context = {}
+    context["max_size"] = max_upload_size
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "image_upload.html", self.context)
+
+    def post(self, request, *args, **kwargs):
+        if request.FILES.getlist("images").__len__() == 0:
+            return render(request, "image_upload.html", self.context)
+        
+        image_files = []
+        for image in request.FILES.getlist("images"):
+            image_name = re.sub(r"\s", "_", str(image))
+            image_binary = image.read()
+            mime = magic.from_buffer(image_binary, True)
+            if mime.find("image/") == -1:
+                context = { **self.context, "error_msg": "Not an image" }
+                return render(request, "image_upload.html", context)
+            
+            if image.size > max_upload_size:
+                context = { **self.context, "error_msg": "Image too large" }
+                return render(request, "image_upload.html", context)
+            
+            image_files.append({"src": image_binary, "name": image_name, "mime": mime})
+        
+        uploader_name = "Medea Guest"
+        uploader_slug = re.sub(r"\s", "_", uploader_name)
+        guest_user = Users.objects.filter(server_side_id=env("MEDEA_GUEST_ID")).first()
+        if guest_user is None:
+            guest_user = Users.objects.create(
+                server_side_id=env("MEDEA_GUEST_ID"), 
+                name=uploader_name,
+                slug=uploader_slug
+                )
+        
+        uploaded_images = upload_image_external(image_files, "medea", True)
+        image_names = []
+        for image in uploaded_images:
+            image_names.append({"name": image["name"], "url": image["url"], "thumbnailUrl": image["thumbnail"]})
+
+            # convert decrypted data into an HttpRequest body for Django Rest Framework to use and save into db
+            save_request = Request(HttpRequest())
+            save_request._full_data = { 
+                "name": image["name"],
+                "url": image["url"],
+                "thumbnail_url": image["thumbnail"],
+                "file_id": image["file_id"],
+                "uploader": guest_user.id,
+                "temporary": True
+            }
+
+            response = super().post(save_request, *args, **kwargs)
+            start_delete_timer(guest_upload_ttl, id=response.data["id"])
+        
+        return HttpResponseRedirect("/users/" + uploader_slug)

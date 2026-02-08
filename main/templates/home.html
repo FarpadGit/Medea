@@ -1,13 +1,30 @@
 {% extends 'main.html' %}
 
 {% block content %}
-  <div>
-    <a id="uploadLink" href="{% url 'file-upload' %}">Upload a File</a>
+  <div class="links">
+    <a href="{% url 'image-upload' %}">Upload an Image</a>
+    <a href="{% url 'file-upload' %}">Upload a File</a>
   </div>
+
+  {% if has_guest_list %}
+    <h2><a href="{% url 'user' user_slug=guest_slug %}">Guest Gallery</a></h2>
+    <div class="image-list margined">
+      {% for image in guest_list %}
+        <div class="image-item">
+          <a href="{{ image.url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ image.url }}" alt="{{image.name}}" class="user-image"/>
+            <img src="/static/splatter{{splatters|random}}.png" alt="" class="splatter"/>
+            <p>Upload date: {{ image.created_at|date:"Y M d D" }}</p>
+            <p>Deletion date: {{ image.deleted_at_guest|date:"Y M d D" }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 
   {% regroup object_list by uploader as grouped_list %}
   <h2>Wayfarer Image Gallery</h2>
-  <ul>
+  <ul class="margined">
     {% for image_list in grouped_list %}
     <li>
       <h3><a href="{% url 'user' user_slug=image_list.grouper.slug %}">{{ image_list.grouper.name }}</a></h3>

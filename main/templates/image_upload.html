@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'styles/file.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Image Upload</h2>
+        <form method="post" action="{% url 'image-upload' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="imagePicker" name="images" type="file" accept="image/*" multiple onchange="handleFileChange()"/>
+            <label for="imagePicker">Upload Image</label>
+            <button id="submit" type="submit" disabled>Upload</button>
+            <p id="message-block">{{ error_msg }}</p>
+        </form>
+    </div>
+    <script>
+        function handleFileChange() {
+            const maxSize = Number("{{max_size}}");
+            const im = document.getElementById("imagePicker");
+            
+            if (im.files.length > 0) {
+                let canUpload = true;
+                for (let i = 0; i < im.files.length; i++) {
+                    if (im.files[i].size >= maxSize) canUpload = false;
+                }
+                if (!canUpload) {
+                    document.getElementById("submit").setAttribute("disabled", "");
+                    document.getElementById("message-block").innerText = "Image Too Large";
+                } else {
+                    document.getElementById("submit").removeAttribute("disabled");
+                    document.getElementById("message-block").innerText = "";
+                }
+            }
+        }
+    </script>
+{% endblock %}

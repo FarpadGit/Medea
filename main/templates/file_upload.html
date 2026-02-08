@@ -18,7 +18,7 @@
                 {% url 'file-download' id=download_id as download_link %}
                 <p>Download Link: {{host}}{{download_link}}</p>
             {% endif %}
-            <p id="message-block"></p>
+            <p id="message-block">{{ error_msg }}</p>
         </form>
     </div>
     <script>

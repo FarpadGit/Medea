@@ -19,7 +19,7 @@ dependencies = [
     "packaging==25.0",
     "psycopg2-binary==2.9.10",
     "pycryptodome==3.23.0",
-    "python-magic-bin==0.4.14",
+    "python-magic==0.4.27",
     "requests==2.32.3",
     "requests-toolbelt>=0.10.1",
     "sqlparse==0.5.3",

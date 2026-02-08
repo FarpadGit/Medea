@@ -31,4 +31,4 @@ dependencies = [
 ]
 
 [tool.uv]
-required-environment = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+required-environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]

@@ -29,3 +29,7 @@ dependencies = [
     "vercel_blob @ git+https://github.com/SuryaSekhar14/vercel_blob.git#egg=vercel_blob --no-deps",
     "whitenoise==6.9.0",
 ]
+
+[tool.uv.required-environments]
+sys_platform == "linux"
+platform_machine == "x86_64"
